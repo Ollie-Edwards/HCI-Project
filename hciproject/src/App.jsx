@@ -1,31 +1,30 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FaUser } from "react-icons/fa";
-import { IoIosSettings } from "react-icons/io";
-import { FaHistory } from "react-icons/fa";
+import { User, Settings, History } from "lucide-react";
 
 export default function IPhoneScannerUI() {
   const videoRef = useRef(null);
   const [hasCamera, setHasCamera] = useState(false);
+  const [cameraActive, setCameraActive] = useState(false);
+
+  const startCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "environment" },
+        audio: false,
+      });
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        await videoRef.current.play();
+      }
+      setHasCamera(true);
+      setCameraActive(true);
+    } catch (err) {
+      console.error("Camera error:", err);
+      setHasCamera(false);
+    }
+  };
 
   useEffect(() => {
-    async function startCamera() {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "environment" },
-          audio: false,
-        });
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          await videoRef.current.play();
-        }
-        setHasCamera(true);
-      } catch (err) {
-        console.error("Camera error:", err);
-        setHasCamera(false);
-      }
-    }
-    startCamera();
-
     return () => {
       if (videoRef.current && videoRef.current.srcObject) {
         videoRef.current.srcObject.getTracks().forEach((track) => track.stop());
@@ -53,6 +52,27 @@ export default function IPhoneScannerUI() {
     pointerEvents: "none",
   };
 
+  const headerContainer = {
+    padding: "16px 20px",
+    display: "flex",
+    justifyContent: "flex-end",
+    gap: 16,
+  };
+
+  const iconStyle = {
+    width: 40,
+    height: 40,
+    borderRadius: "50%",
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    backdropFilter: "blur(10px)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "#fff",
+    cursor: "pointer",
+    pointerEvents: "auto",
+  };
+
   const scannerArea = {
     flex: 1,
     display: "flex",
@@ -65,7 +85,6 @@ export default function IPhoneScannerUI() {
     width: 260,
     height: 260,
     position: "relative",
-    // NO border, NO boxShadow
   };
 
   const cornerStyle = (top, left) => ({
@@ -93,12 +112,27 @@ export default function IPhoneScannerUI() {
     alignItems: "center",
     justifyContent: "center",
     gap: 18,
+    paddingBottom: 20,
   };
 
   const hint = {
     color: "rgba(255,255,255,0.9)",
     fontSize: 14,
     pointerEvents: "none",
+    textShadow: "0 2px 4px rgba(0,0,0,0.5)",
+  };
+
+  const activateButton = {
+    padding: "14px 32px",
+    backgroundColor: "#007AFF",
+    color: "#fff",
+    border: "none",
+    borderRadius: 24,
+    fontSize: 16,
+    fontWeight: "600",
+    cursor: "pointer",
+    pointerEvents: "auto",
+    boxShadow: "0 4px 12px rgba(0, 122, 255, 0.4)",
   };
 
   const notch = {
@@ -119,50 +153,70 @@ export default function IPhoneScannerUI() {
   };
 
   return (
-    <div style={{ padding: 24, display: "flex", justifyContent: "center" }}>
+    <div style={{ padding: 24, display: "flex", justifyContent: "center", minHeight: "100vh", alignItems: "center", backgroundColor: "#f5f5f5" }}>
       <div style={phoneStyle}>
         {/* Full-screen camera */}
-        {hasCamera && (
-          <video
-            ref={videoRef}
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
-          />
+        <video
+          ref={videoRef}
+          autoPlay
+          playsInline
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: cameraActive && hasCamera ? "block" : "none",
+          }}
+        />
+        
+        {!cameraActive && (
+          <div style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            color: "#fff",
+            fontSize: 16,
+            padding: 20,
+            textAlign: "center",
+            flexDirection: "column",
+            gap: 20,
+          }}>
+            <div>Ready to scan</div>
+            <button style={activateButton} onClick={startCamera}>
+              Activate Camera
+            </button>
+          </div>
         )}
 
         {/* Overlay UI */}
         <div style={overlayStyle}>
-
-        <div className="headerContainer">
-          <div className="iconContainer">
-            
-            <div className="icon">
-              <FaHistory size={25} />
-            </div>
-
-            <div className="icon">
-              <FaUser size={25} />
-            </div>
-
-            <div className="icon">
-              <IoIosSettings size={25} />
-            </div>
-          </div>
-        </div>
-
-          <div style={{ height: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ position: "relative" }}>
             <div style={notch}>Camera View</div>
+            
+            <div style={headerContainer}>
+              <div style={iconStyle}>
+                <History size={20} />
+              </div>
+              <div style={iconStyle}>
+                <User size={20} />
+              </div>
+              <div style={iconStyle}>
+                <Settings size={20} />
+              </div>
+            </div>
           </div>
 
           <div style={scannerArea}>
             <div style={scanBox}>
-              {/* Only corners, no box or overlay */}
+              {/* Only corners */}
               <div style={cornerStyle(0, 0)} />
               <div style={cornerStyle(0, 1)} />
               <div style={cornerStyle(1, 0)} />
