@@ -220,7 +220,7 @@ export default function IPhoneScannerUI() {
                 onClick={() => setShowSettings(!showSettings)}
                 style={{ cursor: "pointer" }}
               >
-                <IoIosSettings size={25} />
+                <IoIosSettings size={35} />
               </div>
             </div>
           </div>
@@ -243,7 +243,8 @@ export default function IPhoneScannerUI() {
                 ×
               </div>
 
-              <h3 style={{ marginTop: 32 }}>History</h3>
+              <h3 style={{ marginTop: 32 }}>History </h3>
+              <div style={{position: "absolute", top:50,right:50}}><FaHistory  size={40}/></div>
               <ul>
                 <li>Scan 1</li>
                 <li>Scan 2</li>
@@ -270,7 +271,8 @@ export default function IPhoneScannerUI() {
                 ×
               </div>
 
-              <h3 style={{ marginTop: 32 }}>Profile <FaUserCircle size={60}/></h3>
+              <h3 style={{ marginTop: 32 }}>Profile <FaUser /></h3>
+              <div style={{position: "absolute",top: 50,right: 50}}><FaUserCircle size={120}/></div>
               <p>John <CiEdit /> </p>
               <p>Smith <CiEdit /> </p>
               <p>user@gmail.com <CiEdit /> </p> 
@@ -297,7 +299,11 @@ export default function IPhoneScannerUI() {
                 ×
               </div>
 
-              <h3 style={{ marginTop: 32 }}>Settings</h3>
+                <h3 style={{ marginTop: 32 }}>Settings </h3>
+                <div style={{position: "absolute", top:40,right:40}}><IoIosSettings size={50}/></div>
+              <label><input type="checkbox"></input> Track History</label><p></p>
+              <label><input type="checkbox"></input> Save Location</label><p></p>
+              <label><input type="checkbox"></input> Notifications</label>
             </div>
           )}
 
