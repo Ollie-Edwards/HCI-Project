@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { User, Settings, History } from "lucide-react";
+import { FaUser } from "react-icons/fa";
+import { IoIosSettings } from "react-icons/io";
+import { FaHistory } from "react-icons/fa";
 
 export default function IPhoneScannerUI() {
   const videoRef = useRef(null);
@@ -50,6 +53,7 @@ export default function IPhoneScannerUI() {
     flexDirection: "column",
     justifyContent: "space-between",
     pointerEvents: "none",
+    zIndex: 1,
   };
 
   const headerContainer = {
@@ -153,8 +157,8 @@ export default function IPhoneScannerUI() {
   };
 
   return (
-    <div style={{ padding: 24, display: "flex", justifyContent: "center", minHeight: "100vh", alignItems: "center", backgroundColor: "#f5f5f5" }}>
-      <div style={phoneStyle}>
+    <div style={{ padding: 0, display: "flex", justifyContent: "center", minHeight: "100vh", alignItems: "center", backgroundColor: "#000", position: "fixed", inset: 0 }}>
+      <div style={{ ...phoneStyle, width: "100vw", height: "100vh", border: "none", borderRadius: 0, boxShadow: "none" }}>
         {/* Full-screen camera */}
         <video
           ref={videoRef}
@@ -167,7 +171,6 @@ export default function IPhoneScannerUI() {
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            display: cameraActive && hasCamera ? "block" : "none",
           }}
         />
         
@@ -188,6 +191,7 @@ export default function IPhoneScannerUI() {
             textAlign: "center",
             flexDirection: "column",
             gap: 20,
+            zIndex: 2,
           }}>
             <div>Ready to scan</div>
             <button style={activateButton} onClick={startCamera}>
@@ -198,25 +202,31 @@ export default function IPhoneScannerUI() {
 
         {/* Overlay UI */}
         <div style={overlayStyle}>
-          <div style={{ position: "relative" }}>
-            <div style={notch}>Camera View</div>
-            
-            <div style={headerContainer}>
-              <div style={iconStyle}>
-                <History size={20} />
+
+          <div className="headerContainer">
+            <div className="iconContainer">
+              
+              <div className="icon">
+                <FaHistory size={25} />
               </div>
-              <div style={iconStyle}>
-                <User size={20} />
+
+              <div className="icon">
+                <FaUser size={25} />
               </div>
-              <div style={iconStyle}>
-                <Settings size={20} />
+
+              <div className="icon">
+                <IoIosSettings size={25} />
               </div>
             </div>
           </div>
 
+          <div style={{ height: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={notch}>Camera View</div>
+          </div>
+
           <div style={scannerArea}>
             <div style={scanBox}>
-              {/* Only corners */}
+              {/* Only corners, no box or overlay */}
               <div style={cornerStyle(0, 0)} />
               <div style={cornerStyle(0, 1)} />
               <div style={cornerStyle(1, 0)} />
