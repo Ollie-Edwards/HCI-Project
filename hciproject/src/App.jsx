@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaHistory } from "react-icons/fa";
 import { IoIosSettings } from "react-icons/io";
-import { FaHistory } from "react-icons/fa";
 
 export default function IPhoneScannerUI() {
   const videoRef = useRef(null);
   const [hasCamera, setHasCamera] = useState(false);
+  const [showHistory, setShowHistory] = useState(false); 
 
   useEffect(() => {
     async function startCamera() {
@@ -65,7 +65,6 @@ export default function IPhoneScannerUI() {
     width: 260,
     height: 260,
     position: "relative",
-    // NO border, NO boxShadow
   };
 
   const cornerStyle = (top, left) => ({
@@ -118,10 +117,28 @@ export default function IPhoneScannerUI() {
     pointerEvents: "none",
   };
 
+ const historyTabStyle = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    maxHeight: showHistory ? "40%" : "0", 
+    opacity: showHistory ? 1 : 0,
+    backgroundColor: "rgba(0,0,0,0.95)",
+    color: "#fff",
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    padding: showHistory ? 16 : 0,
+    pointerEvents: showHistory ? "auto" : "none",
+    zIndex: 10,
+    overflowY: "auto",
+    transition: "max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease",
+  };
+
   return (
     <div style={{ padding: 24, display: "flex", justifyContent: "center" }}>
       <div style={phoneStyle}>
-        {/* Full-screen camera */}
+
         {hasCamera && (
           <video
             ref={videoRef}
@@ -136,33 +153,71 @@ export default function IPhoneScannerUI() {
           />
         )}
 
-        {/* Overlay UI */}
+   
         <div style={overlayStyle}>
+          <div
+            className="headerContainer"
+            style={{ pointerEvents: "auto", padding: 10 }}
+          >
+            <div className="iconContainer" style={{ display: "flex", gap: 16 }}>
+              <div
+                className="icon"
+                onClick={() => setShowHistory(!showHistory)}
+                style={{ cursor: "pointer" }}
+              >
+                <FaHistory size={25} />
+              </div>
 
-        <div className="headerContainer">
-          <div className="iconContainer">
-            
-            <div className="icon">
-              <FaHistory size={25} />
-            </div>
+              <div className="icon" style={{ cursor: "pointer" }}>
+                <FaUser size={25} />
+              </div>
 
-            <div className="icon">
-              <FaUser size={25} />
-            </div>
-
-            <div className="icon">
-              <IoIosSettings size={25} />
+              <div className="icon" style={{ cursor: "pointer" }}>
+                <IoIosSettings size={25} />
+              </div>
             </div>
           </div>
-        </div>
 
-          <div style={{ height: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          {showHistory && (
+            <div style={historyTabStyle}>
+              
+              <div
+                onClick={() => setShowHistory(false)}
+                style={{
+                  position: "absolute",
+                  top: 8,
+                  right: 12,
+                  fontSize: 20,
+                  cursor: "pointer",
+                  color: "#fff",
+                  userSelect: "none",
+                }}
+              >
+                ×
+              </div>
+
+              <h3 style={{ marginTop: 32 }}>History</h3>
+              <ul>
+                <li>Scan 1</li>
+                <li>Scan 2</li>
+                <li>Scan 3</li>
+              </ul>
+            </div>
+          )}
+
+          <div
+            style={{
+              height: 44,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <div style={notch}>Camera View</div>
           </div>
 
           <div style={scannerArea}>
             <div style={scanBox}>
-              {/* Only corners, no box or overlay */}
               <div style={cornerStyle(0, 0)} />
               <div style={cornerStyle(0, 1)} />
               <div style={cornerStyle(1, 0)} />
