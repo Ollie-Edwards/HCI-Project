@@ -1,4 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+import { FaUser } from "react-icons/fa";
+import { IoIosSettings } from "react-icons/io";
+import { FaHistory } from "react-icons/fa";
 
 export default function IPhoneScannerUI() {
   const videoRef = useRef(null);
@@ -135,6 +138,23 @@ export default function IPhoneScannerUI() {
 
         {/* Overlay UI */}
         <div style={overlayStyle}>
+
+        <div className="headerContainer">
+          <div className="iconContainer">
+            <div className="icon">
+              <FaHistory />
+            </div>
+
+            <div className="icon">
+              <FaUser />
+            </div>
+
+            <div className="icon">
+              <IoIosSettings />
+            </div>
+          </div>
+        </div>
+
           <div style={{ height: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>
             <div style={notch}>Camera View</div>
           </div>
