@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import { User, Settings, History } from "lucide-react";
-import { FaUser } from "react-icons/fa";
 import { IoIosSettings } from "react-icons/io";
-import { FaHistory } from "react-icons/fa";
+import { CiEdit } from "react-icons/ci";
+import { FaCamera, FaUser, FaHistory, FaUserCircle } from "react-icons/fa";
 
 export default function IPhoneScannerUI() {
   const videoRef = useRef(null);
   const [hasCamera, setHasCamera] = useState(false);
   const [cameraActive, setCameraActive] = useState(false);
-
+  const [showProfile, setShowProfile] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  
   const startCamera = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -35,6 +36,44 @@ export default function IPhoneScannerUI() {
     };
   }, []);
 
+  const profileTabStyle = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    maxHeight: showProfile ? "40%" : "0", 
+    opacity: showProfile ? 1 : 0,
+    backgroundColor: "rgba(0, 0, 0, 0.95)",
+    color: "#fff",
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    padding: showProfile ? 16 : 0,
+    pointerEvents: showProfile ? "auto" : "none",
+    zIndex: 10,
+    height: "100%",
+    
+    transition: "max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease",
+  };
+
+  const settingsTabStyle = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    maxHeight: showSettings ? "40%" : "0", 
+    opacity: showSettings ? 1 : 0,
+    backgroundColor: "rgba(0,0,0,0.95)",
+    color: "#fff",
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    padding: showSettings ? 16 : 0,
+    pointerEvents: showSettings ? "auto" : "none",
+    zIndex: 10,
+    height: "100%",
+    
+    transition: "max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease",
+  };
+  
   const phoneStyle = {
     width: 390,
     height: 844,
@@ -52,7 +91,6 @@ export default function IPhoneScannerUI() {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    pointerEvents: "none",
     zIndex: 1,
   };
 
@@ -207,18 +245,76 @@ export default function IPhoneScannerUI() {
             <div className="iconContainer">
               
               <div className="icon">
-                <FaHistory size={25} />
+                <FaHistory size={35} />
               </div>
 
-              <div className="icon">
-                <FaUser size={25} />
+              <div 
+                className="icon" 
+                onClick={() => setShowProfile(!showProfile)} 
+                style={{ cursor: "pointer" }}
+              >
+                <FaUser size={35} />
               </div>
 
-              <div className="icon">
-                <IoIosSettings size={25} />
+              <div 
+                className="icon" 
+                onClick={() => setShowSettings(!showSettings)}
+                style={{ cursor: "pointer" }}
+              >
+                <IoIosSettings size={35} />
               </div>
             </div>
           </div>
+
+          {showProfile && (
+            <div style={profileTabStyle}>
+
+              <div
+                onClick={() => setShowProfile(false)}
+                style={{
+                  position: "absolute",
+                  top: 8,
+                  right: 12,
+                  fontSize: 20,
+                  cursor: "pointer",
+                  color: "#fff",
+                  userSelect: "none",
+                }}
+              >
+                ×
+              </div>
+
+              <h3 style={{ marginTop: 32 }}>Profile <FaUserCircle size={60}/></h3>
+              <p><strong>Forename: </strong><br/>John <CiEdit /> </p>
+              <p><strong>Surname: </strong><br/>Smith <CiEdit /> </p>
+              <p><strong>Email: </strong><br/>user@gmail.com <CiEdit /> </p> 
+              <p><strong>Location: </strong><br/>Bath, BA2 7AY<CiEdit /> </p> 
+              <p><strong>Help</strong><br/>Contact: help@recyclingBuddy.com</p>
+              <p></p>
+            </div>
+          )}
+
+          {showSettings && (
+            <div style={settingsTabStyle}>
+
+              <div
+                onClick={() => setShowSettings(false)}
+                style={{
+                  position: "absolute",
+                  top: 8,
+                  right: 12,
+                  fontSize: 20,
+                  cursor: "pointer",
+                  color: "#fff",
+                  userSelect: "none",
+                }}
+              >
+                ×
+              </div>
+
+              <h3 style={{ marginTop: 32 }}>Settings</h3>
+            </div>
+          )}
 
           <div style={{ height: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>
             <div style={notch}>Camera View</div>
@@ -234,7 +330,13 @@ export default function IPhoneScannerUI() {
             </div>
           </div>
 
-          <div style={bottomBar}>
+          <div style={bottomBar} className="bottomButton">
+              <div
+                className="icon"
+                style={{ cursor: "pointer" }}
+              >
+                <FaCamera size={35} />
+              </div>
             <div style={hint}>Align object inside the frame</div>
           </div>
         </div>
