@@ -72,7 +72,12 @@ button:focus-visible {
   height: 75px;
   background-color: #1a1a1a;
   border-radius: 100%;
+  color: white;
 
+  /* Center icons in div */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .iconContainer{

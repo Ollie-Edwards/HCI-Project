@@ -141,16 +141,17 @@ export default function IPhoneScannerUI() {
 
         <div className="headerContainer">
           <div className="iconContainer">
+            
             <div className="icon">
-              <FaHistory />
+              <FaHistory size={25} />
             </div>
 
             <div className="icon">
-              <FaUser />
+              <FaUser size={25} />
             </div>
 
             <div className="icon">
-              <IoIosSettings />
+              <IoIosSettings size={25} />
             </div>
           </div>
         </div>
