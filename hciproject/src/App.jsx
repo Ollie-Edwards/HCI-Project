@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FaUser, FaHistory } from "react-icons/fa";
+import { CiEdit } from "react-icons/ci";
+import { FaUser, FaHistory, FaUserCircle } from "react-icons/fa";
 import { IoIosSettings } from "react-icons/io";
 
 export default function IPhoneScannerUI() {
   const videoRef = useRef(null);
   const [hasCamera, setHasCamera] = useState(false);
   const [showHistory, setShowHistory] = useState(false); 
+  const [showProfile, setShowProfile] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     async function startCamera() {
@@ -135,6 +138,42 @@ export default function IPhoneScannerUI() {
     transition: "max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease",
   };
 
+  const profileTabStyle = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    maxHeight: showProfile ? "40%" : "0", 
+    opacity: showProfile ? 1 : 0,
+    backgroundColor: "rgba(0,0,0,0.95)",
+    color: "#fff",
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    padding: showProfile ? 16 : 0,
+    pointerEvents: showProfile ? "auto" : "none",
+    zIndex: 10,
+    overflowY: "auto",
+    transition: "max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease",
+  };
+
+  const settingsTabStyle = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    maxHeight: showSettings ? "40%" : "0", 
+    opacity: showSettings ? 1 : 0,
+    backgroundColor: "rgba(0,0,0,0.95)",
+    color: "#fff",
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    padding: showSettings ? 16 : 0,
+    pointerEvents: showSettings ? "auto" : "none",
+    zIndex: 10,
+    overflowY: "auto",
+    transition: "max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease",
+  };
+
   return (
     <div style={{ padding: 24, display: "flex", justifyContent: "center" }}>
       <div style={phoneStyle}>
@@ -168,11 +207,19 @@ export default function IPhoneScannerUI() {
                 <FaHistory size={25} />
               </div>
 
-              <div className="icon" style={{ cursor: "pointer" }}>
+              <div 
+                className="icon" 
+                onClick={() => setShowProfile(!showProfile)} 
+                style={{ cursor: "pointer" }}
+              >
                 <FaUser size={25} />
               </div>
 
-              <div className="icon" style={{ cursor: "pointer" }}>
+              <div 
+                className="icon" 
+                onClick={() => setShowSettings(!showSettings)}
+                style={{ cursor: "pointer" }}
+              >
                 <IoIosSettings size={25} />
               </div>
             </div>
@@ -202,6 +249,55 @@ export default function IPhoneScannerUI() {
                 <li>Scan 2</li>
                 <li>Scan 3</li>
               </ul>
+            </div>
+          )}
+
+          {showProfile && (
+            <div style={profileTabStyle}>
+              
+              <div
+                onClick={() => setShowProfile(false)}
+                style={{
+                  position: "absolute",
+                  top: 8,
+                  right: 12,
+                  fontSize: 20,
+                  cursor: "pointer",
+                  color: "#fff",
+                  userSelect: "none",
+                }}
+              >
+                ×
+              </div>
+
+              <h3 style={{ marginTop: 32 }}>Profile <FaUserCircle size={60}/></h3>
+              <p>John <CiEdit /> </p>
+              <p>Smith <CiEdit /> </p>
+              <p>user@gmail.com <CiEdit /> </p> 
+              <p></p>
+              <p>Help</p>
+            </div>
+          )}
+
+          {showSettings && (
+            <div style={settingsTabStyle}>
+              
+              <div
+                onClick={() => setShowSettings(false)}
+                style={{
+                  position: "absolute",
+                  top: 8,
+                  right: 12,
+                  fontSize: 20,
+                  cursor: "pointer",
+                  color: "#fff",
+                  userSelect: "none",
+                }}
+              >
+                ×
+              </div>
+
+              <h3 style={{ marginTop: 32 }}>Settings</h3>
             </div>
           )}
 
