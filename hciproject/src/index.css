@@ -66,3 +66,26 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.icon{
+  width: 75px;
+  height: 75px;
+  background-color: #1a1a1a;
+  border-radius: 100%;
+  color: white;
+
+  /* Center icons in div */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconContainer{
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerContainer{
+  width: 80%;
+  margin: 50px auto 0 auto;
+}
