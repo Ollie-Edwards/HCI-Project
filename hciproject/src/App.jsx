@@ -11,6 +11,7 @@ export default function IPhoneScannerUI() {
   const [showHistory, setShowHistory] = useState(false); 
   const [showProfile, setShowProfile] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [showButtons, setShowButtons] = useState(false);
   
   const startCamera = async () => {
     try {
@@ -66,18 +67,20 @@ export default function IPhoneScannerUI() {
   };
 
   const iconStyle = {
-    width: 40,
-    height: 40,
-    borderRadius: "50%",
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
-    backdropFilter: "blur(10px)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "#fff",
+    width: "75px",
+    height: "75px",
+    minHeight: "75px",
+    minWidth: "75px",
+    backgroundColor: "#3191ff",
+    borderRadius: "100%",
+    color: "white",
     cursor: "pointer",
-    pointerEvents: "auto",
-  };
+    /* Center icons in div */
+    display: "flex",
+    visibility: showButtons ? "visible" : "hidden",
+    alignItems: "center",
+    justifyContent: "center"
+  }
 
   const scannerArea = {
     flex: 1,
@@ -166,7 +169,7 @@ export default function IPhoneScannerUI() {
     maxHeight: showHistory ? "100%" : "0", 
     height: "100%", 
     opacity: showHistory ? 1 : 0,
-    backgroundColor: "rgba(31, 31, 31, 0.9)",
+    backgroundColor: "rgba(0,122,255,0.8)",
     color: "#fff",
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
@@ -185,7 +188,7 @@ export default function IPhoneScannerUI() {
     maxHeight: showProfile ? "100%" : "0", 
     height: "100%", 
     opacity: showProfile ? 1 : 0,
-    backgroundColor: "rgba(31, 31, 31, 0.9)",
+    backgroundColor: "rgba(0,122,255,0.8)",
     color: "#fff",
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
@@ -204,7 +207,7 @@ export default function IPhoneScannerUI() {
     maxHeight: showSettings ? "100%" : "0", 
     height: "100%", 
     opacity: showSettings ? 1 : 0,
-    backgroundColor: "rgba(31, 31, 31, 0.9)",
+    backgroundColor: "rgba(0,122,255,0.8)",
     color: "#fff",
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
@@ -253,7 +256,7 @@ export default function IPhoneScannerUI() {
             zIndex: 2,
           }}>
             <div>Ready to scan</div>
-            <button style={activateButton} onClick={startCamera}>
+            <button style={activateButton} onClick={() => {startCamera(), setShowButtons(true)}}>
               Activate Camera
             </button>
           </div>
@@ -267,24 +270,33 @@ export default function IPhoneScannerUI() {
               
               <div
                 className="icon"
-                onClick={() => setShowHistory(!showHistory)}
-                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  setShowHistory(!showHistory)
+                  setShowButtons(false)
+                }}
+                style={iconStyle}
               >
                 <FaHistory size={25} />
               </div>
 
               <div 
                 className="icon" 
-                onClick={() => setShowProfile(!showProfile)} 
-                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  setShowProfile(!showProfile)
+                  setShowButtons(false)
+                }} 
+                style={iconStyle}
               >
                 <FaUser size={35} />
               </div>
 
               <div 
                 className="icon" 
-                onClick={() => setShowSettings(!showSettings)}
-                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  setShowSettings(!showSettings);
+                  setShowButtons(false)
+                }}
+                style={iconStyle}
               >
                 <IoIosSettings size={35} />
               </div>
@@ -295,7 +307,10 @@ export default function IPhoneScannerUI() {
             <div style={historyTabStyle}>
               
               <div
-                onClick={() => setShowHistory(false)}
+                onClick={() => {
+                  setShowHistory(false)
+                  setShowButtons(true)
+                }}
                 style={{
                   position: "absolute",
                   top: 8,
@@ -309,13 +324,15 @@ export default function IPhoneScannerUI() {
                 < IoMdClose size={40}/>
               </div>
 
-              <h3 style={{ marginTop: 32 }}>History </h3>
-              <div style={{position: "absolute", top:50,right:50}}><FaHistory size={40}/></div>
-              <ul>
-                <li>Scan 1</li>
-                <li>Scan 2</li>
-                <li>Scan 3</li>
-              </ul>
+              <h2 style={{marginTop: 32, marginLeft:10}}>History </h2>
+              <div style={{position: "absolute", top:52,right:50}}><FaHistory size={50}/></div>
+              <div style={{fontSize:25, fontFamily:"Verdana"}}>
+                <ul>
+                  <li>Scan 1</li>
+                  <li>Scan 2</li>
+                  <li>Scan 3</li>
+                </ul>
+              </div>
             </div>
           )}
 
@@ -323,7 +340,10 @@ export default function IPhoneScannerUI() {
             <div style={profileTabStyle}>
 
               <div
-                onClick={() => setShowProfile(false)}
+                onClick={() => {
+                  setShowProfile(false)
+                  setShowButtons(true)
+                }}
                 style={{
                   position: "absolute",
                   top: 8,
@@ -337,8 +357,8 @@ export default function IPhoneScannerUI() {
                 < IoMdClose size={40}/>
               </div>
 
-              <h3 style={{ marginTop: 32 }}>Profile</h3>
-              <div style={{position: "absolute", top:40,right:40}}><FaUserCircle size={60}/></div>
+              <h2 style={{ marginTop:32, marginLeft:10}}>Profile</h2>
+              <div style={{position: "absolute", top:52, right:50}}><FaUser size={50}/></div>
               <p><strong>Forename: </strong><br/>John <CiEdit /> </p>
               <p><strong>Surname: </strong><br/>Smith <CiEdit /> </p>
               <p><strong>Email: </strong><br/>user@gmail.com <CiEdit /> </p> 
@@ -352,7 +372,10 @@ export default function IPhoneScannerUI() {
             <div style={settingsTabStyle}>
               
               <div
-                onClick={() => setShowSettings(false)}
+                onClick={() => {
+                  setShowSettings(false)
+                  setShowButtons(true)
+                }}
                 style={{
                   position: "absolute",
                   top: 8,
@@ -366,7 +389,7 @@ export default function IPhoneScannerUI() {
                 < IoMdClose size={40}/>
               </div>
 
-              <h3 style={{ marginTop: 32 }}>Settings </h3>
+              <h2 style={{ marginTop: 32 }}>Settings </h2>
               <div style={{position: "absolute", top:40,right:40}}><IoIosSettings size={50}/></div>
               <label><input type="checkbox"></input> Track Scan History</label><p></p>
               <br/>
@@ -392,8 +415,7 @@ export default function IPhoneScannerUI() {
 
           <div style={bottomBar} className="bottomButton">
               <div
-                className="icon"
-                style={{ cursor: "pointer" }}
+                style={iconStyle}
               >
                 <FaCamera size={35} />
               </div>

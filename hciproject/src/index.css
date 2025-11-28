@@ -35,6 +35,20 @@ h1 {
   line-height: 1.1;
 }
 
+h2 {
+  font-size: 40px;
+  font-family: "Verdana";
+}
+
+p {
+  font-family: "Verdana";
+}
+
+label {
+  font-family: "Verdana";
+  font-size: 20px;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -65,21 +79,6 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
-
-.icon{
-  width: 75px;
-  height: 75px;
-  min-height: 75px;
-  min-width: 75px;
-  background-color: #3191ff;
-  border-radius: 100%;
-  color: white;
-
-  /* Center icons in div */
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .bottomButton{
