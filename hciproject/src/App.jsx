@@ -1,17 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { IoIosSettings, IoMdClose } from "react-icons/io";
-import { CiEdit } from "react-icons/ci";
+//import { CiEdit } from "react-icons/ci";
+import { FiEdit } from "react-icons/fi";
 import { FaCamera, FaUser, FaHistory, FaUserCircle } from "react-icons/fa";
 
 export default function IPhoneScannerUI() {
   const videoRef = useRef(null);
-  const [hasCamera, setHasCamera] = useState(false);
+  const [hasCamera, setHasCamera] = useState(0);
   const [cameraActive, setCameraActive] = useState(false);
 
   const [showHistory, setShowHistory] = useState(false); 
   const [showProfile, setShowProfile] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
+  
+  const [flash, setFlash] = useState(0);
   
   const startCamera = async () => {
     try {
@@ -29,6 +32,20 @@ export default function IPhoneScannerUI() {
       console.error("Camera error:", err);
       setHasCamera(false);
     }
+  };
+
+  const flashEffect = () => {
+    setFlash(1)
+
+    let i = 1;
+    const interval = setInterval(() => {
+      i -= 0.1;
+      if (i <= 0) {
+        i = 0;
+        clearInterval(interval);
+      }
+      setFlash(i);
+    }, 30);    
   };
 
   useEffect(() => {
@@ -218,6 +235,13 @@ export default function IPhoneScannerUI() {
     transition: "max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease",
   };
 
+  const screenFlash = {
+    position: "fixed",
+    height: "100%",
+    width: "100%",
+    background: `rgba(0,0,0,${flash})`
+  };
+
   return (
     <div style={{ padding: 0, display: "flex", justifyContent: "center", minHeight: "100vh", alignItems: "center", backgroundColor: "#000", position: "fixed", inset: 0 }}>
       <div style={{ ...phoneStyle, width: "100vw", height: "100vh", border: "none", borderRadius: 0, boxShadow: "none" }}>
@@ -262,6 +286,8 @@ export default function IPhoneScannerUI() {
           </div>
         )}
 
+        <div style={screenFlash}></div>
+
         {/* Overlay UI */}
         <div style={overlayStyle}>
 
@@ -276,7 +302,7 @@ export default function IPhoneScannerUI() {
                 }}
                 style={iconStyle}
               >
-                <FaHistory size={25} />
+                <FaHistory size={35} />
               </div>
 
               <div 
@@ -298,7 +324,7 @@ export default function IPhoneScannerUI() {
                 }}
                 style={iconStyle}
               >
-                <IoIosSettings size={35} />
+                <IoIosSettings size={50} />
               </div>
             </div>
           </div>
@@ -324,13 +350,34 @@ export default function IPhoneScannerUI() {
                 < IoMdClose size={40}/>
               </div>
 
-              <h2 style={{marginTop: 32, marginLeft:10}}>History </h2>
+              <h2 style={{marginTop: 32}}>History </h2>
               <div style={{position: "absolute", top:52,right:50}}><FaHistory size={50}/></div>
               <div style={{fontSize:25, fontFamily:"Verdana"}}>
-                <ul>
-                  <li>Scan 1</li>
-                  <li>Scan 2</li>
-                  <li>Scan 3</li>
+                <ul style={{listStyle: "none", padding:5}}>
+                  <li class="scannedItem">
+                    <img src="Images/Scan1Img.png" height="100px"/> 
+                    <div class = "scannedItemTextBox">
+                      <p>Drinks Can</p>
+                      <p>Box 1</p>
+                      <p>28/11/25</p>
+                    </div>
+                  </li>
+                  <li class="scannedItem">
+                    <img src="Images/Scan2Img.png" height="100px"/> 
+                    <div class = "scannedItemTextBox">
+                      <p>White Paper</p>
+                      <p>Box 2</p>
+                      <p>28/11/25</p>
+                    </div>
+                  </li>
+                  <li class="scannedItem">
+                    <img src="Images/Scan3Img.png" height="100px"/> 
+                    <div class = "scannedItemTextBox">
+                      <p>Sweets Wrapper</p>
+                      <p>General Waste</p>
+                      <p>27/11/25</p>
+                    </div>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -357,12 +404,13 @@ export default function IPhoneScannerUI() {
                 < IoMdClose size={40}/>
               </div>
 
-              <h2 style={{ marginTop:32, marginLeft:10}}>Profile</h2>
+              <h2 style={{ marginTop:32}}>Profile</h2>
               <div style={{position: "absolute", top:52, right:50}}><FaUser size={50}/></div>
-              <p><strong>Forename: </strong><br/>John <CiEdit /> </p>
-              <p><strong>Surname: </strong><br/>Smith <CiEdit /> </p>
-              <p><strong>Email: </strong><br/>user@gmail.com <CiEdit /> </p> 
-              <p><strong>Location: </strong><br/>Bath, BA2 7AY<CiEdit /> </p> 
+              <div style = {{position: "absolute", top:135, right:40}}><FaUserCircle size={150}/> <FiEdit font-size="20px"/></div>
+              <p><strong>Forename: </strong><br/>John <FiEdit /> </p>
+              <p><strong>Surname: </strong><br/>Smith <FiEdit /> </p>
+              <p><strong>Email: </strong><br/>johnsmith@gmail.com <FiEdit /> </p> 
+              <p><strong>Location: </strong><br/>Bath, BA2 7AY <FiEdit /> </p> 
               <p><strong>Help</strong><br/>Contact: help@recyclingBuddy.com</p>
               <p></p>
             </div>
@@ -389,8 +437,8 @@ export default function IPhoneScannerUI() {
                 < IoMdClose size={40}/>
               </div>
 
-              <h2 style={{ marginTop: 32 }}>Settings </h2>
-              <div style={{position: "absolute", top:40,right:40}}><IoIosSettings size={50}/></div>
+              <h2 style={{ marginTop: 32}}>Settings </h2>
+              <div style={{position: "absolute", top:43,right:42}}><IoIosSettings size={75}/></div>
               <label><input type="checkbox"></input> Track Scan History</label><p></p>
               <br/>
               <label><input type="checkbox"></input> Store My Current Location</label><p></p>
@@ -416,6 +464,7 @@ export default function IPhoneScannerUI() {
           <div style={bottomBar} className="bottomButton">
               <div
                 style={iconStyle}
+                onClick={flashEffect}
               >
                 <FaCamera size={35} />
               </div>

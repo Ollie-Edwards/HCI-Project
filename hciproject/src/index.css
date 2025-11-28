@@ -30,6 +30,31 @@ body {
   min-height: 100vh;
 }
 
+input[type="checkbox"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border: 2px solid lightgray;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+input[type="checkbox"]:checked{
+  border-color: rgb(0, 0, 200);
+  background-color: blue;
+}
+
+input[type="checkbox"]:checked::after {
+  content: "✓";
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -42,6 +67,7 @@ h2 {
 
 p {
   font-family: "Verdana";
+  font-size: 20px
 }
 
 label {
@@ -101,4 +127,16 @@ button:focus-visible {
 .overlayReticle{
   position: absolute;
   margin-left: 25px;
+}
+
+.scannedItem{
+  display:flex; 
+  align-items:center;
+  gap: 12px;
+  margin-bottom: 15px
+}
+
+.scannedItemTextBox p {
+  margin: 0;
+  line-height: 1.5;
 }
