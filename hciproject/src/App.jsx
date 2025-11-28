@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { IoIosSettings } from "react-icons/io";
+import { IoIosSettings, IoMdClose } from "react-icons/io";
 import { CiEdit } from "react-icons/ci";
 import { FaCamera, FaUser, FaHistory, FaUserCircle } from "react-icons/fa";
 
@@ -7,6 +7,8 @@ export default function IPhoneScannerUI() {
   const videoRef = useRef(null);
   const [hasCamera, setHasCamera] = useState(false);
   const [cameraActive, setCameraActive] = useState(false);
+
+  const [showHistory, setShowHistory] = useState(false); 
   const [showProfile, setShowProfile] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   
@@ -35,44 +37,6 @@ export default function IPhoneScannerUI() {
       }
     };
   }, []);
-
-  const profileTabStyle = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    maxHeight: showProfile ? "40%" : "0", 
-    opacity: showProfile ? 1 : 0,
-    backgroundColor: "rgba(0, 0, 0, 0.95)",
-    color: "#fff",
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
-    padding: showProfile ? 16 : 0,
-    pointerEvents: showProfile ? "auto" : "none",
-    zIndex: 10,
-    height: "100%",
-    
-    transition: "max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease",
-  };
-
-  const settingsTabStyle = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    maxHeight: showSettings ? "40%" : "0", 
-    opacity: showSettings ? 1 : 0,
-    backgroundColor: "rgba(0,0,0,0.95)",
-    color: "#fff",
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
-    padding: showSettings ? 16 : 0,
-    pointerEvents: showSettings ? "auto" : "none",
-    zIndex: 10,
-    height: "100%",
-    
-    transition: "max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease",
-  };
   
   const phoneStyle = {
     width: 390,
@@ -194,6 +158,63 @@ export default function IPhoneScannerUI() {
     pointerEvents: "none",
   };
 
+ const historyTabStyle = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    maxHeight: showHistory ? "100%" : "0", 
+    height: "100%", 
+    opacity: showHistory ? 1 : 0,
+    backgroundColor: "rgba(31, 31, 31, 0.9)",
+    color: "#fff",
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    padding: showHistory ? 16 : 0,
+    pointerEvents: showHistory ? "auto" : "none",
+    zIndex: 10,
+    overflowY: "auto",
+    transition: "max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease",
+  };
+
+  const profileTabStyle = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    maxHeight: showProfile ? "100%" : "0", 
+    height: "100%", 
+    opacity: showProfile ? 1 : 0,
+    backgroundColor: "rgba(31, 31, 31, 0.9)",
+    color: "#fff",
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    padding: showProfile ? 16 : 0,
+    pointerEvents: showProfile ? "auto" : "none",
+    zIndex: 10,
+    overflowY: "auto",
+    transition: "max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease",
+  };
+
+  const settingsTabStyle = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    maxHeight: showSettings ? "100%" : "0", 
+    height: "100%", 
+    opacity: showSettings ? 1 : 0,
+    backgroundColor: "rgba(31, 31, 31, 0.9)",
+    color: "#fff",
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    padding: showSettings ? 16 : 0,
+    pointerEvents: showSettings ? "auto" : "none",
+    zIndex: 10,
+    overflowY: "auto",
+    transition: "max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease",
+  };
+
   return (
     <div style={{ padding: 0, display: "flex", justifyContent: "center", minHeight: "100vh", alignItems: "center", backgroundColor: "#000", position: "fixed", inset: 0 }}>
       <div style={{ ...phoneStyle, width: "100vw", height: "100vh", border: "none", borderRadius: 0, boxShadow: "none" }}>
@@ -242,10 +263,14 @@ export default function IPhoneScannerUI() {
         <div style={overlayStyle}>
 
           <div className="headerContainer">
-            <div className="iconContainer">
+            <div className="iconContainer"  style={{ display: "flex", gap: 16 }}>
               
-              <div className="icon">
-                <FaHistory size={35} />
+              <div
+                className="icon"
+                onClick={() => setShowHistory(!showHistory)}
+                style={{ cursor: "pointer" }}
+              >
+                <FaHistory size={25} />
               </div>
 
               <div 
@@ -266,6 +291,34 @@ export default function IPhoneScannerUI() {
             </div>
           </div>
 
+          {showHistory && (
+            <div style={historyTabStyle}>
+              
+              <div
+                onClick={() => setShowHistory(false)}
+                style={{
+                  position: "absolute",
+                  top: 8,
+                  right: 12,
+                  fontSize: 20,
+                  cursor: "pointer",
+                  color: "#fff",
+                  userSelect: "none",
+                }}
+              >
+                < IoMdClose size={40}/>
+              </div>
+
+              <h3 style={{ marginTop: 32 }}>History </h3>
+              <div style={{position: "absolute", top:50,right:50}}><FaHistory size={40}/></div>
+              <ul>
+                <li>Scan 1</li>
+                <li>Scan 2</li>
+                <li>Scan 3</li>
+              </ul>
+            </div>
+          )}
+
           {showProfile && (
             <div style={profileTabStyle}>
 
@@ -281,10 +334,11 @@ export default function IPhoneScannerUI() {
                   userSelect: "none",
                 }}
               >
-                ×
+                < IoMdClose size={40}/>
               </div>
 
-              <h3 style={{ marginTop: 32 }}>Profile <FaUserCircle size={60}/></h3>
+              <h3 style={{ marginTop: 32 }}>Profile</h3>
+              <div style={{position: "absolute", top:40,right:40}}><FaUserCircle size={60}/></div>
               <p><strong>Forename: </strong><br/>John <CiEdit /> </p>
               <p><strong>Surname: </strong><br/>Smith <CiEdit /> </p>
               <p><strong>Email: </strong><br/>user@gmail.com <CiEdit /> </p> 
@@ -296,7 +350,7 @@ export default function IPhoneScannerUI() {
 
           {showSettings && (
             <div style={settingsTabStyle}>
-
+              
               <div
                 onClick={() => setShowSettings(false)}
                 style={{
@@ -309,10 +363,16 @@ export default function IPhoneScannerUI() {
                   userSelect: "none",
                 }}
               >
-                ×
+                < IoMdClose size={40}/>
               </div>
 
-              <h3 style={{ marginTop: 32 }}>Settings</h3>
+              <h3 style={{ marginTop: 32 }}>Settings </h3>
+              <div style={{position: "absolute", top:40,right:40}}><IoIosSettings size={50}/></div>
+              <label><input type="checkbox"></input> Track Scan History</label><p></p>
+              <br/>
+              <label><input type="checkbox"></input> Store My Current Location</label><p></p>
+              <br/>
+              <label><input type="checkbox"></input> Enable Notifications</label>
             </div>
           )}
 
@@ -321,7 +381,7 @@ export default function IPhoneScannerUI() {
           </div>
 
           <div style={scannerArea}>
-            <div style={scanBox}>
+            <div style={scanBox} className="overlayReticle">
               {/* Only corners, no box or overlay */}
               <div style={cornerStyle(0, 0)} />
               <div style={cornerStyle(0, 1)} />
