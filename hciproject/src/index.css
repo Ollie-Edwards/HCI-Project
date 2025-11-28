@@ -70,7 +70,9 @@ button:focus-visible {
 .icon{
   width: 75px;
   height: 75px;
-  background-color: #1a1a1a;
+  min-height: 75px;
+  min-width: 75px;
+  background-color: #3191ff;
   border-radius: 100%;
   color: white;
 
@@ -78,6 +80,12 @@ button:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.bottomButton{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 100px;
 }
 
 .iconContainer{
@@ -88,4 +96,10 @@ button:focus-visible {
 .headerContainer{
   width: 80%;
   margin: 50px auto 0 auto;
+}
+
+
+.overlayReticle{
+  position: absolute;
+  margin-left: 25px;
 }
