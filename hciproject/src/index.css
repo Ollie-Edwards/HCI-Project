@@ -70,6 +70,11 @@ p {
   font-size: 20px
 }
 
+span {
+  font-family: "Verdana";
+  font-size: 20px;
+}
+
 label {
   font-family: "Verdana";
   font-size: 20px;
@@ -132,11 +137,32 @@ button:focus-visible {
 .scannedItem{
   display:flex; 
   align-items:center;
+  background-color: rgba(57, 152, 255, 0.537);
+  height: 110px;
   gap: 12px;
-  margin-bottom: 15px
+  margin-bottom: 15px;
+  border-radius: 4px
+}
+
+.scannedItem img{
+  padding-left: 5px;
+}
+
+.scannedItemTextBox{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
 }
 
 .scannedItemTextBox p {
   margin: 0;
   line-height: 1.5;
+}
+
+.dateLine{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
 }

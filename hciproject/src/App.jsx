@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { IoIosSettings, IoMdClose } from "react-icons/io";
 //import { CiEdit } from "react-icons/ci";
 import { FiEdit } from "react-icons/fi";
+import { RiDeleteBinLine } from "react-icons/ri";
 import { FaCamera, FaUser, FaHistory, FaUserCircle } from "react-icons/fa";
 
 export default function IPhoneScannerUI() {
@@ -353,28 +354,28 @@ export default function IPhoneScannerUI() {
               <h2 style={{marginTop: 32}}>History </h2>
               <div style={{position: "absolute", top:52,right:50}}><FaHistory size={50}/></div>
               <div style={{fontSize:25, fontFamily:"Verdana"}}>
-                <ul style={{listStyle: "none", padding:5}}>
-                  <li class="scannedItem">
+                <ul style={{listStyle: "none", margin:0,padding:0}}>
+                  <li className="scannedItem">
                     <img src="Images/Scan1Img.png" height="100px"/> 
-                    <div class = "scannedItemTextBox">
+                    <div className = "scannedItemTextBox">
                       <p>Drinks Can</p>
-                      <p>Box 1</p>
+                      <p>Box 1 <span style={{position: "relative", top:"5px", left:"135px"}}><RiDeleteBinLine size={25}/></span></p>
                       <p>28/11/25</p>
                     </div>
                   </li>
-                  <li class="scannedItem">
+                  <li className="scannedItem">
                     <img src="Images/Scan2Img.png" height="100px"/> 
-                    <div class = "scannedItemTextBox">
+                    <div className = "scannedItemTextBox">
                       <p>White Paper</p>
-                      <p>Box 2</p>
+                      <p>Box 2 <span style={{position: "relative", top:"5px", left:"135px"}}><RiDeleteBinLine size={25}/></span></p>
                       <p>28/11/25</p>
                     </div>
                   </li>
-                  <li class="scannedItem">
+                  <li className="scannedItem">
                     <img src="Images/Scan3Img.png" height="100px"/> 
-                    <div class = "scannedItemTextBox">
+                    <div className = "scannedItemTextBox">
                       <p>Sweets Wrapper</p>
-                      <p>General Waste</p>
+                      <p>General Waste <span style={{position: "relative", top:"5px", left:"47px"}}><RiDeleteBinLine size={25}/></span></p>
                       <p>27/11/25</p>
                     </div>
                   </li>
