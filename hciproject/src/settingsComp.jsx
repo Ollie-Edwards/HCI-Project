@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { IoIosSettings, IoMdClose } from "react-icons/io";
+import Modal from "./modal.jsx";
 
 // Settings Component
 const SettingsOverlay = ({ onClose }) => {
   const [showNotificationOptions, setShowNotificationOptions] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <div style={{
@@ -47,6 +49,18 @@ const SettingsOverlay = ({ onClose }) => {
         /> 
         Enable Notifications
       </label>
+      <br/>
+
+      <button onClick={() => setOpen(true)}>Open Delete Popup</button>
+
+      <Modal 
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onDelete={() => {
+          alert("Account deleted!");
+          setOpen(false);
+        }}
+      />
       
         {showNotificationOptions && (
             <div style={{marginLeft: 30, marginTop: 10}}>
