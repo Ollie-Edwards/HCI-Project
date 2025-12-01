@@ -178,7 +178,7 @@ export default function IPhoneScannerUI() {
     position: "fixed",
     height: "100%",
     width: "100%",
-    background: `rgba(0,0,0,${flash})`
+    background: `rgba(175,175,175,${flash})`
   };
 
   const handleCloseOverlay = (overlayType) => {

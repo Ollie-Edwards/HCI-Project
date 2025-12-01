@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { IoIosSettings, IoMdClose } from "react-icons/io";
 
 // Settings Component
 const SettingsOverlay = ({ onClose }) => {
+  const [showNotificationOptions, setShowNotificationOptions] = useState(false);
+
   return (
     <div style={{
       position: "absolute",
@@ -35,10 +38,24 @@ const SettingsOverlay = ({ onClose }) => {
       <div style={{position: "absolute", top:43, right:42}}><IoIosSettings size={75}/></div>
       <label><input type="checkbox"/> Track Scan History</label><p></p>
       <br/>
-      <label><input type="checkbox"/> Store My Current Location</label><p></p>
+      <label><input type="checkbox"/> Use My Current Location</label><p></p>
       <br/>
-      <label><input type="checkbox"/> Enable Notifications</label>
-    </div>
+      <label>
+        <input 
+          type="checkbox" 
+          onChange={(e) => setShowNotificationOptions(e.target.checked)}
+        /> 
+        Enable Notifications
+      </label>
+      
+        {showNotificationOptions && (
+            <div style={{marginLeft: 30, marginTop: 10}}>
+            <label><input type="checkbox"/> Text Messages</label><br/>
+            <label><input type="checkbox"/> Email</label><br/>
+            <label><input type="checkbox"/> Push Notifications</label>
+            </div>
+        )}
+      </div>
   );
 };
 

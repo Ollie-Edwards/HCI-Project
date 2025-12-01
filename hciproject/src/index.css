@@ -128,7 +128,6 @@ button:focus-visible {
   margin: 50px auto 0 auto;
 }
 
-
 .overlayReticle{
   position: absolute;
   margin-left: 25px;
@@ -137,7 +136,8 @@ button:focus-visible {
 .scannedItem{
   display:flex; 
   align-items:center;
-  background-color: rgba(57, 152, 255, 0.537);
+
+  background-color: rgba(41, 56, 72, 0.5);
   height: 110px;
   gap: 12px;
   margin-bottom: 15px;
@@ -165,4 +165,8 @@ button:focus-visible {
   width: 100%;
   justify-content: space-between;
   align-items: center;
+}
+
+.historyList{
+  margin-bottom: 750px;
 }
