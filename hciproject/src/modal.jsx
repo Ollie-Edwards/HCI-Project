@@ -98,14 +98,17 @@ const Modal = ({ isOpen, onClose, onDelete }) => {
         <h2 style={styles.title}>Delete Account</h2>
 
         <p style={styles.text}>
-          Are you sure you want to delete the account linked to  
+          Are you sure you want to delete the account and all data linked to  
           <strong> products1@nicelydone.com?</strong>
+          <br/>
+          <br/>
+          This includes: records of scans, location data, user data, and all accociated data
         </p>
 
         {/* Checkbox */}
         <label style={styles.checkboxRow}>
           <input type="checkbox" style={styles.checkbox} />
-          I understand that I won't be able to recover my account.
+            <p style={ styles.text}>I understand that I won't be able to recover my account.</p>
         </label>
 
         {/* Buttons */}
