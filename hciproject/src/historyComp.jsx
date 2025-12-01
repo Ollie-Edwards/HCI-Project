@@ -80,7 +80,7 @@ const HistoryOverlay = ({ onClose }) => {
                   <span>{item.location}</span>
 
                   <span 
-                    style={{ marginLeft: "auto", cursor: "pointer" }} 
+                    style={{ marginLeft: "auto", cursor: "pointer", marginRight:"7px" }} 
                     onClick={() => deleteItem(item.id)}
                   >
                     <RiDeleteBinLine size={25} />
