@@ -1,7 +1,7 @@
 import React from 'react';
 import { IoMdClose } from "react-icons/io";
 import { FiEdit } from "react-icons/fi";
-import { FaUserCircle } from "react-icons/fa";
+import { FaUserCircle, FaUser } from "react-icons/fa";
 
 // Profile Component
 const ProfileOverlay = ({ onClose }) => {
