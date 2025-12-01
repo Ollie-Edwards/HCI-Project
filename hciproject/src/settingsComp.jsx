@@ -2,25 +2,22 @@ import { IoIosSettings, IoMdClose } from "react-icons/io";
 
 // Settings Component
 const SettingsOverlay = ({ onClose }) => {
-  const settingsTabStyle = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    height: "100%",
-    backgroundColor: "rgba(0,122,255,0.8)",
-    color: "#fff",
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
-    padding: 16,
-    zIndex: 10,
-    overflowY: "auto",
-  };
-
   return (
-    <div style={settingsTabStyle}>
+    <div style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      height: "100%",
+      backgroundColor: "rgba(0,122,255,0.8)",
+      color: "#fff",
+      borderBottomLeftRadius: 12,
+      borderBottomRightRadius: 12,
+      padding: 16,
+      zIndex: 10,
+      overflowY: "auto",
+    }}>
       <div
-        onClick={onClose}
         style={{
           position: "absolute",
           top: 8,
@@ -31,7 +28,7 @@ const SettingsOverlay = ({ onClose }) => {
           userSelect: "none",
         }}
       >
-        <IoMdClose size={40}/>
+        <IoMdClose size={40} onClick={onClose}/>
       </div>
 
       <h2 style={{marginTop: 32}}>Settings</h2>
