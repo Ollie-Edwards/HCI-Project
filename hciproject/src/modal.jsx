@@ -1,7 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 const Modal = ({ isOpen, onClose, onDelete }) => {
+  
+  const [confirmed, setConfirmed] = useState(false);
+
+  function handleDelete(){
+    if(confirmed){
+      onDelete();
+    }
+    else{
+      alert("Please click the checkbox")
+    }
+  }
+  
   if (!isOpen) return null;
 
     const styles = {
@@ -99,7 +111,7 @@ const Modal = ({ isOpen, onClose, onDelete }) => {
 
         <p style={styles.text}>
           Are you sure you want to delete the account and all data linked to  
-          <strong> products1@nicelydone.com?</strong>
+          <strong> johnsmith@gmail.com?</strong>
           <br/>
           <br/>
           This includes: records of scans, location data, user data, and all accociated data
@@ -107,13 +119,13 @@ const Modal = ({ isOpen, onClose, onDelete }) => {
 
         {/* Checkbox */}
         <label style={styles.checkboxRow}>
-          <input type="checkbox" style={styles.checkbox} />
+          <input type="checkbox" style={styles.checkbox} onChange={(e) => setConfirmed(e.target.checked)}/>
             <p style={ styles.text}>I understand that I won't be able to recover my account.</p>
         </label>
 
         {/* Buttons */}
         <div style={styles.buttonRow}>
-          <button style={styles.deleteBtn} onClick={onDelete}>Delete</button>
+          <button style={styles.deleteBtn} onClick={handleDelete}>Delete</button>
           <button style={styles.cancelBtn} onClick={onClose}>Cancel</button>
         </div>
       </div>

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { IoMdClose } from "react-icons/io";
 import { FiEdit } from "react-icons/fi";
 import { FaUserCircle, FaUser } from "react-icons/fa";
+import Modal from "./modal.jsx";
 
 // Profile Component
 const ProfileOverlay = ({ onClose }) => {
+  const [open, setOpen] = useState(false);
   return (
     <div style={{
       position: "absolute",
@@ -43,6 +45,21 @@ const ProfileOverlay = ({ onClose }) => {
       <p><strong>Email: </strong><br/>johnsmith@gmail.com <FiEdit /> </p> 
       <p><strong>Location: </strong><br/>Bath, BA2 7AY <FiEdit /> </p> 
       <p><strong>Help</strong><br/>Contact: help@recyclingBuddy.com</p>
+    
+      <button 
+        style={{position:"absolute", top:"70%", left:"25%", width:200, height:50, backgroundColor:"rgba(41, 56, 72, 1)", color:"white", fontSize:"17px", padding:0}} 
+        onClick={() => setOpen(true)}>
+        Delete All User Data
+      </button>
+
+      <Modal 
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onDelete={() => {
+          alert("Account deleted!");
+          setOpen(false);
+        }}
+      />
     </div>
   );
 };
